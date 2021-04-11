@@ -15,6 +15,7 @@ import { useState, useRef, useEffect } from "react";
 import { Search } from "@geist-ui/react-icons";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import NextLink from "next/link";
 
 function AvatarForRep({ x }) {
   return (
@@ -91,6 +92,9 @@ export default function Home({ divisions, data }) {
     });
   });
   const [votes, setVotes] = useState(data);
+  useEffect(() => {
+    setVotes(data);
+  }, [data]);
   const [loading, setLoading] = useState(null);
   const [loadingFirst, setLoadingFirst] = useState(false);
   const [search, setSearch] = useState("");
@@ -98,7 +102,7 @@ export default function Home({ divisions, data }) {
   const nonInputEl = useRef(null);
   async function fetchVotes(id) {
     setLoading(id);
-    router.push(`/${id}`)
+    router.push(`/${id}`);
     setLoading(null);
   }
   return (
@@ -108,7 +112,12 @@ export default function Home({ divisions, data }) {
           {data == {} ? "Divisions of the Australian Parliament" : data.name}
         </title>
       </Head>
-      <Grid.Container gap={0} justify="center" style={{ padding: "0" }} className="thegridwrapper">
+      <Grid.Container
+        gap={0}
+        justify="center"
+        style={{ padding: "0" }}
+        className="thegridwrapper"
+      >
         <Grid
           md={7}
           xs={24}
@@ -151,86 +160,96 @@ export default function Home({ divisions, data }) {
                 },
                 index
               ) => (
-                <Card
-                  key={id}
-                  style={{
-                    margin: "0rem 0 1rem 0",
-                    borderColor: votes.id == id ? "#0070F3" : "",
-                    cursor: loading == id ? "wait" : "pointer",
-                    display:
-                      search == "" ||
-                      name.toUpperCase().includes(search.toUpperCase())
-                        ? "inherit"
-                        : "none",
-                  }}
-                  hoverable
-                  onClick={() =>
-                    votes.id == id ? setVotes({}) : fetchVotes(id)
-                  }
-                >
-                  <Text small style={{ color: "#666666", marginBottom: "8px" }}>
-                    The{" "}
-                    {house == "senate" ? "Senate" : "House of Representatives"}{" "}
-                    | {new Date(date).toLocaleDateString()}
-                  </Text>
-                  <Text h5 style={{ fontWeight: "700", textAlign: "left" }}>
-                    {name}
-                  </Text>
-                  <div style={{ display: "flex" }}>
-                    <Avatar
-                      style={{ objectFit: "cover" }}
-                      src={`/api/image/${id}`}
-                    />
-                    <div
-                      style={{
-                        display: "block",
-                        width: "calc(100% - 1.875rem)",
-                        paddingLeft: "8px",
-                      }}
+                <NextLink href="/[slug]" as={`/${id}`}>
+                  <Card
+                    key={id}
+                    style={{
+                      margin: "0rem 0 1rem 0",
+                      borderColor: votes.id == id ? "#0070F3" : "",
+                      cursor: loading == id ? "wait" : "pointer",
+                      display:
+                        search == "" ||
+                        name.toUpperCase().includes(search.toUpperCase())
+                          ? "inherit"
+                          : "none",
+                    }}
+                    hoverable
+                    onClick={() =>
+                      votes.id == id ? setVotes({}) : fetchVotes(id)
+                    }
+                  >
+                    <Text
+                      small
+                      style={{ color: "#666666", marginBottom: "8px" }}
                     >
-                      <div style={{ marginBottom: "8px" }}>
-                        {" "}
+                      The{" "}
+                      {house == "senate"
+                        ? "Senate"
+                        : "House of Representatives"}{" "}
+                      | {new Date(date).toLocaleDateString()}
+                    </Text>
+                    <Text h5 style={{ fontWeight: "700", textAlign: "left" }}>
+                      {name}
+                    </Text>
+                    <div style={{ display: "flex" }}>
+                      <Avatar
+                        style={{ objectFit: "cover" }}
+                        src={`/api/image/${id}`}
+                      />
+                      <div
+                        style={{
+                          display: "block",
+                          width: "calc(100% - 1.875rem)",
+                          paddingLeft: "8px",
+                        }}
+                      >
+                        <div style={{ marginBottom: "8px" }}>
+                          {" "}
+                          <Tooltip
+                            text={
+                              (aye_votes / (aye_votes + no_votes)) * 100 < 30
+                                ? "The motion failed with a strong majority."
+                                : (aye_votes / (aye_votes + no_votes)) * 100 <
+                                  50
+                                ? "The motion failed with a slight majority."
+                                : (aye_votes / (aye_votes + no_votes)) * 100 ==
+                                  50
+                                ? "The motion failed as the vote was a tie."
+                                : (aye_votes / (aye_votes + no_votes)) * 100 <
+                                  70
+                                ? "The motion passed with a slight majority."
+                                : "The motion passed with a strong majority."
+                            }
+                            style={{ display: "block", width: "100%" }}
+                          >
+                            <Progress
+                              value={(aye_votes / (aye_votes + no_votes)) * 100}
+                              max={100}
+                              colors={{
+                                30: "#EE0000",
+                                50: "#F5A623",
+                                70: "#B8DE3D",
+                                100: "#17DE51",
+                              }}
+                            />
+                          </Tooltip>
+                        </div>
                         <Tooltip
-                          text={
-                            (aye_votes / (aye_votes + no_votes)) * 100 < 30
-                              ? "The motion failed with a strong majority."
-                              : (aye_votes / (aye_votes + no_votes)) * 100 < 50
-                              ? "The motion failed with a slight majority."
-                              : (aye_votes / (aye_votes + no_votes)) * 100 == 50
-                              ? "The motion failed as the vote was a tie."
-                              : (aye_votes / (aye_votes + no_votes)) * 100 < 70
-                              ? "The motion passed with a slight majority."
-                              : "The motion passed with a strong majority."
-                          }
+                          text={`An attendance of ${Math.round(
+                            ((aye_votes + no_votes) / possible_turnout) * 100
+                          )}% was observed.`}
                           style={{ display: "block", width: "100%" }}
                         >
                           <Progress
-                            value={(aye_votes / (aye_votes + no_votes)) * 100}
-                            max={100}
-                            colors={{
-                              30: "#EE0000",
-                              50: "#F5A623",
-                              70: "#B8DE3D",
-                              100: "#17DE51",
-                            }}
+                            value={aye_votes + no_votes}
+                            max={possible_turnout}
+                            type="success"
                           />
                         </Tooltip>
                       </div>
-                      <Tooltip
-                        text={`An attendance of ${Math.round(
-                          ((aye_votes + no_votes) / possible_turnout) * 100
-                        )}% was observed.`}
-                        style={{ display: "block", width: "100%" }}
-                      >
-                        <Progress
-                          value={aye_votes + no_votes}
-                          max={possible_turnout}
-                          type="success"
-                        />
-                      </Tooltip>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                </NextLink>
               )
             )}{" "}
           </div>
@@ -307,7 +326,7 @@ export default function Home({ divisions, data }) {
               <Spacer y={0.6} />
               <div style={{ lineHeight: "2.5" }}>
                 {votes.votes.map((x) =>
-                  x.vote == "aye" ? <AvatarForRep x={x} /> : ""
+                  x.vote == "aye" ? <AvatarForRep x={x} key={x.member.person.id} /> : ""
                 )}
               </div>
             </div>
