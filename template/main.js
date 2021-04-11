@@ -113,11 +113,6 @@ export default function Home({ divisions, data }) {
   }
   return (
     <Page size="large" style={{ width: "100%", padding: "0" }}>
-      <Head>
-        <title>
-          {data == {} ? "Divisions of the Australian Parliament" : data.name}
-        </title>
-      </Head>
       <Grid.Container
         gap={0}
         justify="center"
