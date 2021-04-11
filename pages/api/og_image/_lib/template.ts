@@ -60,18 +60,18 @@ export function getHtml(parsedReq: ParsedRequest) {
         ${getCss(" ", " ")}
     </style>
         <div id="mainbody">
-            <div style="padding: 32px">
-                <div class="zi-card" style="height: 1106px; border: 3px solid var(--accents-2); padding: 0px; border-radius: 16px">
-                    <div style="font-size: 105px; height: 900px; border-bottom: 3px solid var(--accents-2); padding: 32px; margin-bottom: 0px">
+            <div style="padding: 0px">
+                <div class="zi-card" style="height: 1106px; border: 0px solid var(--accents-2); padding: 0px; border-radius: 0px">
+                    <div style="font-size: 105px; height: 964px; border-bottom: 3px solid var(--accents-2); padding: 32px; margin-bottom: 0px">
                         <h5 style="font-size: 45px; color: #999999">${house} | ${date}</h5>
                         <h1 style="font-size: 105px;">${title}</h1>
                 <h5 style="font-size: 45px; color: #999999">${status} with ${percent}% of the vote.</h5>
                     </div>
-                    <div style="display: flex; height: 200px;">
-                        <div style="font-size: 105px; width: 50%; padding: 32px; background: rgba(151, 222, 110, 1); border-bottom-left-radius: 16px">
+                    <div style="display: flex; height: 206px;">
+                        <div style="font-size: 105px; width: 50%; padding: 32px; background: rgba(151, 222, 110, 1)">
                             ${aye.map((img) => `<img class="zi-avatar stacked huge" src="${img}">`).join(' ')}
                         </div>
-                        <div style="font-size: 105px; width: 50%; padding: 32px; background: #D33050; border-bottom-right-radius: 16px">
+                        <div style="font-size: 105px; width: 50%; padding: 32px; background: #D33050">
                             ${nay.map((img) => `<img class="zi-avatar stacked huge" src="${img}">`).join(' ')}
                         </div>
                     </div>

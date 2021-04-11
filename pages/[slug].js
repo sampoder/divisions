@@ -66,7 +66,7 @@ export async function getStaticProps({ params }) {
       "https://upload.wikimedia.org/wikipedia/commons/4/42/Zali_Steggall_official_campaign_image.jpg",
     Kelly: "https://www.aph.gov.au/api/parliamentarian/99931/image",
     "Australian Labor Party":
-      "https://yt3.ggpht.com/ytc/AAUvwnjXIaHISFFsc8-LH8g-YbECx0EOLcKjg3sZSq5_=s900-c-k-c0x00ffffff-no-rj",
+      "https://cloud-qu5c4x9eb-hack-club-bot.vercel.app/0labor_pary.png",
     "Australian Greens":
       "https://yt3.ggpht.com/ytc/AAUvwngUW_HLoEfn3ykO9dlwKgRTrM2rOkj3XuDCrhAomA=s900-c-k-c0x00ffffff-no-rj",
     "Katter's Australian Party":
