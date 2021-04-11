@@ -45,13 +45,13 @@ export function parseRequest(req: IncomingMessage) {
     theme: theme === "dark" ? "dark" : "light",
     md: md === "1" || md === "true",
     fontSize: fontSize || "96px",
-    house: house || "Senate",
+    house: house || "Senate", // @ts-ignore
     date:
-      date.replace("-", "/").replace("-", "/").replace("-", "/") ||
+      date.replace("-", "/").replace("-", "/").replace("-", "/") || // @ts-ignore
       "21-03-2004",
-    status: status || "Passed",
-    percent: percent || "50%",
-    title: title || "The Motion of the House Name",
+    status: status || "Passed", // @ts-ignore
+    percent: percent || "50%", // @ts-ignore
+    title: title || "The Motion of the House Name", // @ts-ignore
     aye: getArray(aye),
     nay: getArray(nay),
     widths: getArray(widths),
