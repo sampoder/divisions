@@ -177,6 +177,6 @@ export async function getStaticProps({ params }) {
       },
     };
 
-    return { props: { divisions, parities, home: true } };
+    return { props: { divisions, parties, home: true } };
   }
 }
