@@ -98,9 +98,8 @@ export default function Home({ divisions, data }) {
   const nonInputEl = useRef(null);
   async function fetchVotes(id) {
     setLoading(id);
-    setVotes(await fetch(`/api/votes/${id}`).then((r) => r.json()));
+    router.push(`/${id}`)
     setLoading(null);
-    history.pushState("data to be passed", "Title of the page", `/${id}`);
   }
   return (
     <Page size="large" style={{ width: "100%", padding: "0" }}>
