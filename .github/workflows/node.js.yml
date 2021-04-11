@@ -21,6 +21,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+        
+    - name: create env file
+      run: |
+        touch .env
+        echo key =${{ secrets.key }} >> .env
 
     - run: yarn --frozen-lockfile
     - run: node actions/script.js
