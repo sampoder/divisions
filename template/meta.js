@@ -40,7 +40,7 @@ const Meta = ({
       key="apple_icon"
       rel="apple-touch-icon"
       sizes="180x180"
-      href={`${url}/apple-touch-icon.png`}
+      href={`${url}/apple-icon.png`}
     />
     <link
       key="favicon_32"

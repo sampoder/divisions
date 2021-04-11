@@ -2,11 +2,31 @@ let orderBy = require("lodash").orderBy;
 var fs = require("fs");
 require('dotenv').config()
 var fetch = require("node-fetch");
+const arrayUnion = (...arguments_) => [...new Set(arguments_.flat())];
+var unique = require('unique-array');
 
 async function main() {
   let divisions = await fetch(
     `https://theyvoteforyou.org.au/api/v1/divisions.json?key=${process.env.key}`
   ).then((r) => r.json());
+
+  let divisions1 = await fetch(
+    `https://theyvoteforyou.org.au/api/v1/divisions.json?key=${process.env.key}&end_date=${divisions[divisions.length - 1].date}`
+  ).then((r) => r.json());
+
+  divisions = arrayUnion(divisions, divisions1)
+
+  divisions1 = await fetch(
+    `https://theyvoteforyou.org.au/api/v1/divisions.json?key=${process.env.key}&end_date=${divisions[divisions.length - 1].date}`
+  ).then((r) => r.json());
+
+  divisions = arrayUnion(divisions, divisions1)
+
+  divisions1 = await fetch(
+    `https://theyvoteforyou.org.au/api/v1/divisions.json?key=${process.env.key}&end_date=${divisions[divisions.length - 1].date}`
+  ).then((r) => r.json());
+
+  divisions = unique(arrayUnion(divisions, divisions1))
 
   divisions.map(
     (x, index) =>
