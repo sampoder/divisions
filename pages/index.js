@@ -11,8 +11,8 @@ export async function getStaticProps() {
   ).then((r) => r.json());
   if (!isDev) {
     divisions.map(
-      x,
-      (index) =>
+      (x,
+      index) =>
         async function () {
           let data = await fetch(
             `https://theyvoteforyou.org.au/api/v1/divisions/${x.id}.json?key=${process.env.key}`

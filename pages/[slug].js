@@ -18,7 +18,9 @@ export default function Home({ divisions, data, parties }) {
             : "Failed"
         }&percent=${Math.round(
           (data.aye_votes / (data.aye_votes + data.no_votes)) * 100
-        )}${Object.keys(parties).map((x) => `&${parties[x].vote}=${parties[x].image}`).join('')}`}
+        )}${Object.keys(parties)
+          .map((x) => `&${parties[x].vote}=${parties[x].image}`)
+          .join("")}`}
       />
       <MainTemplate divisions={divisions} data={data} />
     </>
@@ -96,7 +98,7 @@ export async function getStaticProps({ params }) {
               .replace("Country Liberal Party", "Liberal National Party")
               .replace("Liberal Party", "Liberal National Party")
       ] = {
-        vote: x.vote.replace('no', 'nay'),
+        vote: x.vote.replace("no", "nay"),
         image:
           images[
             x.member.party == "Independent"
@@ -108,8 +110,7 @@ export async function getStaticProps({ params }) {
   });
   if (!isDev) {
     divisions.map(
-      x,
-      (index) =>
+      (x, index) =>
         async function () {
           let data = await fetch(
             `https://theyvoteforyou.org.au/api/v1/divisions/${x.id}.json?key=${process.env.key}`
