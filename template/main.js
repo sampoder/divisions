@@ -13,14 +13,23 @@ import {
 } from "@geist-ui/react";
 import { useState, useRef, useEffect } from "react";
 import { Search } from "@geist-ui/react-icons";
-import { useRouter } from 'next/router'
-import Head from 'next/head'
+import { useRouter } from "next/router";
+import Head from "next/head";
 
 function AvatarForRep({ x }) {
   return (
     <span
       key={x.member.person.id}
-      title={x.member.first_name + ' ' + x.member.last_name + ' (' + x.member.party + ')' + ' from ' + x.member.electorate }
+      title={
+        x.member.first_name +
+        " " +
+        x.member.last_name +
+        " (" +
+        x.member.party +
+        ")" +
+        " from " +
+        x.member.electorate
+      }
       className={"avatar-wrapper" + " " + JSON.stringify(x.member)}
       style={{ marginRight: "8px", marginBottom: "8px" }}
     >
@@ -64,7 +73,7 @@ function AvatarForRep({ x }) {
 }
 
 export default function Home({ divisions, data }) {
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     window.addEventListener("keydown", function (e) {
       if (
@@ -91,16 +100,19 @@ export default function Home({ divisions, data }) {
     setLoading(id);
     setVotes(await fetch(`/api/votes/${id}`).then((r) => r.json()));
     setLoading(null);
-    history.pushState('data to be passed', 'Title of the page', `/${id}`);
+    history.pushState("data to be passed", "Title of the page", `/${id}`);
   }
   return (
     <Page size="large" style={{ width: "100%", padding: "0" }}>
       <Head>
-        <title>{data == {} ? 'Divisions of the Australian Parliament' : data.name}</title>
+        <title>
+          {data == {} ? "Divisions of the Australian Parliament" : data.name}
+        </title>
       </Head>
-      <Grid.Container gap={0} justify="center" style={{ padding: "0" }}>
+      <Grid.Container gap={0} justify="center" style={{ padding: "0" }} className="thegridwrapper">
         <Grid
-          xs={7}
+          md={7}
+          xs={24}
           style={{
             width: "100%",
             height: "100vh",
@@ -111,6 +123,7 @@ export default function Home({ divisions, data }) {
             paddingBottom: "0px",
             display: "block",
           }}
+          className="searchbar"
         >
           <div style={{ margin: "0 0 1rem 0 " }}>
             <Input
@@ -156,7 +169,7 @@ export default function Home({ divisions, data }) {
                     votes.id == id ? setVotes({}) : fetchVotes(id)
                   }
                 >
-                  <Text small style={{ color: "#666666" }}>
+                  <Text small style={{ color: "#666666", marginBottom: "8px" }}>
                     The{" "}
                     {house == "senate" ? "Senate" : "House of Representatives"}{" "}
                     | {new Date(date).toLocaleDateString()}
@@ -225,7 +238,8 @@ export default function Home({ divisions, data }) {
         </Grid>
         {typeof votes.votes == "undefined" ? (
           <Grid
-            xs={17}
+            md={17}
+            xs={24}
             style={{
               width: "100%",
               height: "100vh",
@@ -235,6 +249,7 @@ export default function Home({ divisions, data }) {
               alignItems: "center",
               justifyContent: "center",
             }}
+            className="avatarwrapperwrapper"
           >
             <Text
               style={{ textAlign: "center", color: "rgb(102, 102, 102)" }}
@@ -258,7 +273,8 @@ export default function Home({ divisions, data }) {
           </Grid>
         ) : (
           <Grid
-            xs={17}
+            md={17}
+            xs={24}
             style={{
               width: "100%",
               height: "100vh",
@@ -266,14 +282,17 @@ export default function Home({ divisions, data }) {
               border: "none",
               display: "block",
             }}
+            className="avatarwrapperwrapper"
           >
             <div
               style={{
                 height: "50vh",
+                overflow: "scroll",
                 borderBottom: "1px solid #333333",
                 width: "100%",
                 padding: "24px",
               }}
+              className="avatarwrapper"
             >
               <Tag
                 type={votes.aye_votes > votes.no_votes ? "success" : "lite"}
@@ -296,10 +315,12 @@ export default function Home({ divisions, data }) {
             <div
               style={{
                 height: "50vh",
+                overflow: "scroll",
                 borderBottom: "1px solid #333333",
                 width: "100%",
                 padding: "24px",
               }}
+              className="avatarwrapper"
             >
               <Tag
                 type={votes.aye_votes < votes.no_votes ? "success" : "lite"}
@@ -329,6 +350,21 @@ export default function Home({ divisions, data }) {
 
         .avatar-wrapper .avatar{
           border: none!important
+        }
+        
+        @media only screen and (max-width: 650px){
+          .searchbar{
+            height: 40vh!important;
+          }
+          .avatarwrapperwrapper {
+            height: 60vh!important
+          }
+          .avatarwrapper{
+            height: 30vh!important;
+          }
+          .thegridwrapper {
+            flex-direction: column-reverse;
+          }
         }
       `}</style>
     </Page>
