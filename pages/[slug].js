@@ -52,6 +52,7 @@ export default function Home({ divisions, data, parties, home }) {
 }
 
 export async function getStaticPaths() {
+  let uniq = require("underscore").uniq;
   let divisions = uniq(divisionsJSON, true /* array already sorted */, function(item) {
     return item.id;
   });
