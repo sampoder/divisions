@@ -52,9 +52,9 @@ export default function Home({ divisions, data, parties, home }) {
 }
 
 export async function getStaticPaths() {
-  let divisions = await fetch(
-    `https://theyvoteforyou.org.au/api/v1/divisions.json?key=${process.env.key}`
-  ).then((r) => r.json());
+  let divisions = uniq(divisionsJSON, true /* array already sorted */, function(item) {
+    return item.id;
+  });
   let paths = divisions.map((x) => ({
     params: {
       slug: String(x.id),
