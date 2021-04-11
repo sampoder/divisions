@@ -31,18 +31,7 @@ export default function Home({ divisions, data, parties, home }) {
           }
         />
       ) : (
-        <Meta
-          image={`/api/og_image?house=The%20${"House%20of%20Representatives"}&title=${"Divisions of Australia: Visualizing Every Parliamentary Division"}&date=${new Date()
-            .toLocaleDateString()
-            .replace("-", "/")
-            .replace("-", "/")
-            .replace(
-              "-",
-              "/"
-            )}&status=${"Succeeded"}&percent=${"57"}${Object.keys(parties)
-            .map((x) => `&${parties[x].vote}=${parties[x].image}`)
-            .join("")}`}
-        >
+        <Meta>
           <title>Divisions of Australia</title>
         </Meta>
       )}

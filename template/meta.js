@@ -7,7 +7,7 @@ const Meta = ({
   title = "Divisions of Australia", // page title
   name = "Divisions of Australia", // site name
   description = "Every division in Australia's parliament visualized.", // page description
-  image = "api/og_image?house=Da%20House%20of%20Representatives&title=Mutual%20Recognition%20Amendment%20Bill%202021%20-%20Consideration%20in%20Detail%20-%20Don%27t%20add%20exclusion&date=11-04-2020&status=Failed&percent=40&aye=https://upload.wikimedia.org/wikipedia/commons/4/42/Zali_Steggall_official_campaign_image.jpg&aye=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F4%2F42%2FZali_Steggall_official_campaign_image.jpg&nay=https%3A%2F%2Fwww.aph.gov.au%2Fapi%2Fparliamentarian%2F99931%2Fimage", // social card image URL
+  image = "https://aus-divisions.co/api/og_image?house=The%20House%20of%20Representatives&title=Divisions%20of%20Australia:%20Visualizing%20Every%20Parliamentary%20Division&date=12/04/2021&status=Succeeded&percent=57&aye=https://www.aph.gov.au/api/parliamentarian/282335/image&aye=https://www.aph.gov.au/api/parliamentarian/99931/image&nay=https://upload.wikimedia.org/wikipedia/commons/4/42/Zali_Steggall_official_campaign_image.jpg&aye=https://pbs.twimg.com/profile_images/994723081724641281/17Qd4u69.jpg&aye=https://pbs.twimg.com/profile_images/1117392084653133825/0phgU_tv.jpg&nay=https://www.aph.gov.au/api/parliamentarian/C2T/image&nay=https://yt3.ggpht.com/ytc/AAUvwngUW_HLoEfn3ykO9dlwKgRTrM2rOkj3XuDCrhAomA=s900-c-k-c0x00ffffff-no-rj&nay=https://cloud-qu5c4x9eb-hack-club-bot.vercel.app/0labor_pary.png", // social card image URL
   url = "https://divisions.vercel.app",
   children,
 }) => (
