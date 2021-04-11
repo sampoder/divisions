@@ -75,6 +75,7 @@ function AvatarForRep({ x }) {
 
 export default function Home({ divisions, data }) {
   const router = useRouter();
+  const scrollToRef = useRef(null);
   useEffect(() => {
     window.addEventListener("keydown", function (e) {
       if (
@@ -95,6 +96,11 @@ export default function Home({ divisions, data }) {
   useEffect(() => {
     setVotes(data);
   }, [data]);
+  useEffect(() => {
+    if (scrollToRef.current) {
+      scrollToRef.current.scrollIntoView();
+    }
+  }, [scrollToRef.current]);
   const [loading, setLoading] = useState(null);
   const [loadingFirst, setLoadingFirst] = useState(false);
   const [search, setSearch] = useState("");
@@ -157,7 +163,7 @@ export default function Home({ divisions, data }) {
                   no_votes,
                   possible_turnout,
                   date,
-                  picture
+                  picture,
                 },
                 index
               ) => (
@@ -175,6 +181,7 @@ export default function Home({ divisions, data }) {
                           : "none",
                     }}
                     hoverable
+                    ref={votes.id == id ? scrollToRef : null}
                     onClick={() =>
                       votes.id == id ? setVotes({}) : fetchVotes(id)
                     }
@@ -193,10 +200,7 @@ export default function Home({ divisions, data }) {
                       {name}
                     </Text>
                     <div style={{ display: "flex" }}>
-                      <Avatar
-                        style={{ objectFit: "cover" }}
-                        src={picture}
-                      />
+                      <Avatar style={{ objectFit: "cover" }} src={picture} />
                       <div
                         style={{
                           display: "block",
@@ -327,7 +331,11 @@ export default function Home({ divisions, data }) {
               <Spacer y={0.6} />
               <div style={{ lineHeight: "2.5" }}>
                 {votes.votes.map((x) =>
-                  x.vote == "aye" ? <AvatarForRep x={x} key={x.member.person.id} /> : ""
+                  x.vote == "aye" ? (
+                    <AvatarForRep x={x} key={x.member.person.id} />
+                  ) : (
+                    ""
+                  )
                 )}
               </div>
             </div>
