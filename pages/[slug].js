@@ -144,6 +144,10 @@ export async function getStaticProps({ params }) {
             people[0].location != 1000000000000000
               ? `https://www.openaustralia.org.au/images/mpsL/${people[0].id}.jpg`
               : "https://cloud-570jjime3-hack-club-bot.vercel.app/0nopicfoundicon.png";
+          console.log(x[index].picture)
+          console.log(x[index])
+          console.log(x)
+          console.log(index)
         }
     );
   }
