@@ -2,7 +2,6 @@ import MainTemplate from "../template/main";
 import Meta from "../template/meta";
 
 export default function Home({ divisions, data, parties }) {
-  console.log(Object.keys(parties))
   return (
     <>
       <Meta
