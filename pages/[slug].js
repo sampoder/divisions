@@ -7,30 +7,42 @@ export default function Home({ divisions, data, parties, home }) {
     <>
       {!home ? (
         <Meta
-          title={!home ? data.name : ''}
-          image={!home ? `/api/og_image?house=The%20${
-            data.house == "senate" ? "Senate" : "House of Representatives"
-          }&title=${data.name}&date=${new Date(data.date)
+          title={!home ? data.name : ""}
+          image={
+            !home
+              ? `/api/og_image?house=The%20${
+                  data.house == "senate" ? "Senate" : "House of Representatives"
+                }&title=${data.name}&date=${new Date(data.date)
+                  .toLocaleDateString()
+                  .replace("-", "/")
+                  .replace("-", "/")
+                  .replace("-", "/")}&status=${
+                  (data.aye_votes / (data.aye_votes + data.no_votes)) * 100 > 50
+                    ? "Succeeded"
+                    : "Failed"
+                }&percent=${Math.round(
+                  (data.aye_votes / (data.aye_votes + data.no_votes)) * 100
+                )}${Object.keys(parties)
+                  .map((x) => `&${parties[x].vote}=${parties[x].image}`)
+                  .join("")}`
+              : ""
+          }
+        />
+      ) : (
+        <Meta
+          image={`/api/og_image?house=The%20${"Senate"}&title=${"Divisions of Australia: Visualizing Every Parliamentary"}&date=${new Date()
             .toLocaleDateString()
             .replace("-", "/")
             .replace("-", "/")
-            .replace("-", "/")}&status=${
-            (data.aye_votes / (data.aye_votes + data.no_votes)) * 100 > 50
-              ? "Succeeded"
-              : "Failed"
-          }&percent=${Math.round(
-            (data.aye_votes / (data.aye_votes + data.no_votes)) * 100
-          )}${Object.keys(parties)
+            .replace(
+              "-",
+              "/"
+            )}&status=${"Succeeded"}&percent=${"57"}${Object.keys(parties)
             .map((x) => `&${parties[x].vote}=${parties[x].image}`)
-            .join("")}` : ''}
+            .join("")}`}
         />
-      ) : (
-        ""
       )}
-      <MainTemplate
-        divisions={divisions}
-        data={!home ? data : {}}
-      />
+      <MainTemplate divisions={divisions} data={!home ? data : {}} />
     </>
   );
 }
@@ -125,6 +137,46 @@ export async function getStaticProps({ params }) {
       props: { divisions, data, parties }, // will be passed to the page component as props
     };
   } else {
-    return { props: { divisions, home: true } };
+    let parties = {
+      "Liberal National Party": {
+        vote: "aye",
+        image:
+          "https://pbs.twimg.com/profile_images/1117392084653133825/0phgU_tv.jpg",
+      },
+      "Centre Alliance": {
+        vote: "aye",
+        image:
+          "https://pbs.twimg.com/profile_images/994723081724641281/17Qd4u69.jpg",
+      },
+      Haines: {
+        vote: "aye",
+        image: "https://www.aph.gov.au/api/parliamentarian/282335/image",
+      },
+      Steggall: {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/4/42/Zali_Steggall_official_campaign_image.jpg",
+      },
+      Wilkie: {
+        vote: "nay",
+        image: "https://www.aph.gov.au/api/parliamentarian/C2T/image",
+      },
+      Kelly: {
+        vote: "aye",
+        image: "https://www.aph.gov.au/api/parliamentarian/99931/image",
+      },
+      "Australian Labor Party": {
+        vote: "nay",
+        image:
+          "https://cloud-qu5c4x9eb-hack-club-bot.vercel.app/0labor_pary.png",
+      },
+      "Australian Greens": {
+        vote: "nay",
+        image:
+          "https://yt3.ggpht.com/ytc/AAUvwngUW_HLoEfn3ykO9dlwKgRTrM2rOkj3XuDCrhAomA=s900-c-k-c0x00ffffff-no-rj",
+      },
+    };
+
+    return { props: { divisions, parities, home: true } };
   }
 }
