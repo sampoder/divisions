@@ -1,3 +1,5 @@
+/* tslint:disable */
+
 import { IncomingMessage } from "http";
 import { parse } from "url";
 import { ParsedRequest, Theme } from "./types";
