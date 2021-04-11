@@ -140,43 +140,43 @@ export async function getStaticProps({ params }) {
     };
   } else {
     let parties = {
-      "Liberal National Party": {
-        vote: "aye",
-        image:
-          "https://pbs.twimg.com/profile_images/1117392084653133825/0phgU_tv.jpg",
-      },
-      "Centre Alliance": {
-        vote: "aye",
-        image:
-          "https://pbs.twimg.com/profile_images/994723081724641281/17Qd4u69.jpg",
-      },
       Haines: {
         vote: "aye",
         image: "https://www.aph.gov.au/api/parliamentarian/282335/image",
+      },
+      Kelly: {
+        vote: "aye",
+        image: "https://www.aph.gov.au/api/parliamentarian/99931/image",
       },
       Steggall: {
         vote: "nay",
         image:
           "https://upload.wikimedia.org/wikipedia/commons/4/42/Zali_Steggall_official_campaign_image.jpg",
       },
+      "Centre Alliance": {
+        vote: "aye",
+        image:
+          "https://pbs.twimg.com/profile_images/994723081724641281/17Qd4u69.jpg",
+      },
+      "Liberal National Party": {
+        vote: "aye",
+        image:
+          "https://pbs.twimg.com/profile_images/1117392084653133825/0phgU_tv.jpg",
+      },
       Wilkie: {
         vote: "nay",
         image: "https://www.aph.gov.au/api/parliamentarian/C2T/image",
-      },
-      Kelly: {
-        vote: "aye",
-        image: "https://www.aph.gov.au/api/parliamentarian/99931/image",
-      },
-      "Australian Labor Party": {
-        vote: "nay",
-        image:
-          "https://cloud-qu5c4x9eb-hack-club-bot.vercel.app/0labor_pary.png",
       },
       "Australian Greens": {
         vote: "nay",
         image:
           "https://yt3.ggpht.com/ytc/AAUvwngUW_HLoEfn3ykO9dlwKgRTrM2rOkj3XuDCrhAomA=s900-c-k-c0x00ffffff-no-rj",
       },
+      "Australian Labor Party": {
+        vote: "nay",
+        image:
+          "https://cloud-qu5c4x9eb-hack-club-bot.vercel.app/0labor_pary.png",
+      }
     };
 
     return { props: { divisions, parties, home: true } };
