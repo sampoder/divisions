@@ -18,8 +18,8 @@ function getCss(theme: string, fontSize: string) {
   }
   return `
   #mainbody{
-    width: 2400px;
-     height: 1256px;
+    width: 1200px;
+     height: 630px;
      background: black;
   }
   
@@ -35,12 +35,12 @@ function getCss(theme: string, fontSize: string) {
   }
   
   .zi-avatar.stacked+.zi-avatar.stacked {
-  margin-left: -3.625rem!important;
+  margin-left: -1.812rem!important;
   }
   
   .zi-avatar.huge {
-  width: 8.625rem!important;
-  height: 8.625rem!important;
+  width: 4.312rem!important;
+  height: 4.312rem!important;
   }`;
 }
 
@@ -62,17 +62,17 @@ export function getHtml(parsedReq: ParsedRequest) {
     </style>
         <div id="mainbody">
             <div style="padding: 0px">
-                <div class="zi-card" style="height: 1050px; border: 0px solid var(--accents-2); padding: 0px; border-radius: 0px">
-                    <div style="font-size: 105px; height: 1050px; border-bottom: 3px solid var(--accents-2); padding: 64px; margin-bottom: 0px">
-                        <h5 style="font-size: 65px; color: #999999">${house} | ${date}</h5>
-                        <h1 style="font-size: ${title == "Divisions of Australia: Visualizing Every Parliamentary Division" ? "152" : "106"}px;">${title}</h1>
-                <h5 style="font-size: 65px; color: #999999">${status} with ${percent}% of the vote.</h5>
+                <div class="zi-card" style="height: 525px; border: 0px solid var(--accents-2); padding: 0px; border-radius: 0px">
+                    <div style="font-size: 52px; height: 525px; border-bottom: 3px solid var(--accents-2); padding: 32px; margin-bottom: 0px">
+                        <h5 style="font-size: 32px; color: #999999">${house} | ${date}</h5>
+                        <h1 style="font-size: ${title == "Divisions of Australia: Visualizing Every Parliamentary Division" ? "76" : "53"}px;">${title}</h1>
+                <h5 style="font-size: 32px; color: #999999">${status} with ${percent}% of the vote.</h5>
                     </div>
-                    <div style="display: flex; height: 206px;">
-                        <div style="font-size: 105px; width: 50%; padding: 32px; padding-left: 64px; padding-right: 64px; background: rgba(151, 222, 110, 1)">
+                    <div style="display: flex; height: 105px;">
+                        <div style="font-size: 52px; width: 50%; padding: 16px; padding-left: 32px; padding-right: 32px; background: rgba(151, 222, 110, 1)">
                             ${aye.map((img) => `<img class="zi-avatar stacked huge" src="${img}">`).join(' ')}
                         </div>
-                        <div style="font-size: 105px; width: 50%; padding: 32px; padding-left: 64px; padding-right: 64px; background: #D33050">
+                        <div style="font-size: 52px; width: 50%; padding: 16px; padding-left: 32px; padding-right: 32px; background: #D33050">
                             ${nay.map((img) => `<img class="zi-avatar stacked huge" src="${img}">`).join(' ')}
                         </div>
                     </div>
