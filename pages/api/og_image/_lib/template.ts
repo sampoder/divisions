@@ -64,7 +64,7 @@ export function getHtml(parsedReq: ParsedRequest) {
                 <div class="zi-card" style="height: 1106px; border: 0px solid var(--accents-2); padding: 0px; border-radius: 0px">
                     <div style="font-size: 105px; height: 964px; border-bottom: 3px solid var(--accents-2); padding: 64px; margin-bottom: 0px">
                         <h5 style="font-size: 65px; color: #999999">${house} | ${date}</h5>
-                        <h1 style="font-size: ${title == "Divisions%20of%20Australia:%20Visualizing%20Every%20Parliamentary%20Division" ? "105" : "140"}px;">${title}</h1>
+                        <h1 style="font-size: ${title == "Divisions%20of%20Australia:%20Visualizing%20Every%20Parliamentary%20Division" ? "105" : "138"}px;">${title}</h1>
                 <h5 style="font-size: 65px; color: #999999">${status} with ${percent}% of the vote.</h5>
                     </div>
                     <div style="display: flex; height: 206px;">
