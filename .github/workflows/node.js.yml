@@ -1,0 +1,34 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+     - cron: 0 */4 * * *
+  workflow_dispatch: 
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [15.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - run: yarn --frozen-lockfile
+    - run: node actions/script.js
+    
+    - name: Push to GitHub
+      run: |
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "Data Update!"
+        git add .
+        git commit -m "Images update!" || true
+        git push

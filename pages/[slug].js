@@ -2,7 +2,9 @@ import MainTemplate from "../template/main";
 import Meta from "../template/meta";
 import divisionsJSON from "../finals.json";
 
+
 export default function Home({ divisions, data, parties, home }) {
+  
   return (
     <>
       {!home ? (
@@ -70,9 +72,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  let orderBy = require("lodash").orderBy;
+  let uniq = require("underscore").uniq;
+  var unique = require('unique-array');
   const isDev = !process.env.AWS_REGION;
-  let divisions = divisionsJSON;
+  let divisions = uniq(divisionsJSON, true /* array already sorted */, function(item) {
+    return item.id;
+  });
   if (params.slug != "home") {
     let parties = {};
     let data = await fetch(
