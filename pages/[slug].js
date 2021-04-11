@@ -30,7 +30,7 @@ export default function Home({ divisions, data, parties, home }) {
         />
       ) : (
         <Meta
-          image={`/api/og_image?house=The%20${"Senate"}&title=${"Divisions of Australia: Visualizing Every Parliamentary"}&date=${new Date()
+          image={`/api/og_image?house=The%20${"House%20of%20Representatives"}&title=${"Divisions of Australia: Visualizing Every Parliamentary Division"}&date=${new Date()
             .toLocaleDateString()
             .replace("-", "/")
             .replace("-", "/")
@@ -40,7 +40,9 @@ export default function Home({ divisions, data, parties, home }) {
             )}&status=${"Succeeded"}&percent=${"57"}${Object.keys(parties)
             .map((x) => `&${parties[x].vote}=${parties[x].image}`)
             .join("")}`}
-        />
+        >
+          <title>Divisions of Australia</title>
+        </Meta>
       )}
       <MainTemplate divisions={divisions} data={!home ? data : {}} />
     </>
