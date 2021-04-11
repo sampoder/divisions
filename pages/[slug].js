@@ -3,7 +3,6 @@ import Meta from "../template/meta";
 import divisionsJSON from "../finals.json";
 
 export default function Home({ divisions, data, parties, home }) {
-  console.log(home)
   return (
     <>
       {!home ? (

@@ -167,7 +167,7 @@ export default function Home({ divisions, data }) {
                 },
                 index
               ) => (
-                <NextLink href="/[slug]" as={`/${id}`}>
+                <NextLink href="/[slug]" as={`/${id}`} key={id}>
                   <Card
                     key={id}
                     style={{
