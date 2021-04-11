@@ -18,8 +18,8 @@ function getCss(theme: string, fontSize: string) {
   }
   return `
   #mainbody{
-    width: 2048px;
-     height: 1170px;
+    width: 2400px;
+     height: 1200px;
      background: black;
   }
   
@@ -63,9 +63,9 @@ export function getHtml(parsedReq: ParsedRequest) {
         <div id="mainbody">
             <div style="padding: 0px">
                 <div class="zi-card" style="height: 1106px; border: 0px solid var(--accents-2); padding: 0px; border-radius: 0px">
-                    <div style="font-size: 105px; height: 964px; border-bottom: 3px solid var(--accents-2); padding: 64px; margin-bottom: 0px">
+                    <div style="font-size: 105px; height: 994px; border-bottom: 3px solid var(--accents-2); padding: 64px; margin-bottom: 0px">
                         <h5 style="font-size: 65px; color: #999999">${house} | ${date}</h5>
-                        <h1 style="font-size: ${title == "Divisions of Australia: Visualizing Every Parliamentary Division" ? "138" : "106"}px;">${title}</h1>
+                        <h1 style="font-size: ${title == "Divisions of Australia: Visualizing Every Parliamentary Division" ? "152" : "106"}px;">${title}</h1>
                 <h5 style="font-size: 65px; color: #999999">${status} with ${percent}% of the vote.</h5>
                     </div>
                     <div style="display: flex; height: 206px;">
