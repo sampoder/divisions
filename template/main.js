@@ -157,10 +157,11 @@ export default function Home({ divisions, data }) {
                   no_votes,
                   possible_turnout,
                   date,
+                  picture
                 },
                 index
               ) => (
-                <NextLink href="/[slug]" as={`/${id}`}>
+                <NextLink href="/[slug]" as={`/${id}`} onClick={setLoading(id)}>
                   <Card
                     key={id}
                     style={{
@@ -194,7 +195,7 @@ export default function Home({ divisions, data }) {
                     <div style={{ display: "flex" }}>
                       <Avatar
                         style={{ objectFit: "cover" }}
-                        src={`/api/image/${id}`}
+                        src={picture}
                       />
                       <div
                         style={{
