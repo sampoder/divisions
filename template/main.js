@@ -379,7 +379,7 @@ export default function Home({ divisions, data }) {
             height: 40vh!important;
           }
           .avatarwrapperwrapper {
-            height: 60vh!important
+            min-height: 60vh!important
           }
           .avatarwrapper{
             height: 30vh!important;
