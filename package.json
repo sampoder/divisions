@@ -10,12 +10,23 @@
   "dependencies": {
     "@geist-ui/react": "latest",
     "@geist-ui/react-icons": "^1.0.1",
+    "@types/marked": "^2.0.1",
+    "@types/puppeteer": "^5.4.3",
+    "@types/puppeteer-core": "^5.4.0",
+    "chrome-aws-lambda": "^8.0.2",
     "lodash": "^4.17.21",
+    "marked": "^2.0.2",
     "next": "10.1.3",
+    "puppeteer-core": "^8.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-keyboard-shortcuts": "^1.1.3",
     "react-use-color-mode": "^1.3.0",
-    "supercons": "^0.0.1"
+    "supercons": "^0.0.1",
+    "twemoji": "^13.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.3",
+    "typescript": "^4.2.4"
   }
 }
