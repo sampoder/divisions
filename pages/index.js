@@ -11,17 +11,100 @@ import {
   Input,
   Tag,
 } from "@geist-ui/react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Search } from "@geist-ui/react-icons";
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+
+function AvatarForRep({ x }) {
+  return (
+    <span
+      key={x.member.person.id}
+      title={x.member.first_name + ' ' + x.member.last_name + ' (' + x.member.party + ')' + ' from ' + x.member.electorate }
+      className={"avatar-wrapper" + " " + JSON.stringify(x.member)}
+      style={{ marginRight: "8px", marginBottom: "8px" }}
+    >
+      <Avatar
+        style={{
+          objectFit: "cover",
+          border:
+            x.member.party == "Australian Labor Party" ||
+            x.member.party == "DPRES"
+              ? "2.5px solid #E13940"
+              : x.member.party == "Australian Greens"
+              ? "2.5px solid #009C3D"
+              : x.member.party == "Katter's Australian Party"
+              ? "2.5px solid #b50204"
+              : x.member.party == "Independent" ||
+                x.member.party == "Jacqui Lambie Network"
+              ? "2.5px solid #7928CA"
+              : x.member.party == "Centre Alliance"
+              ? "2.5px solid #FF5800"
+              : x.member.party == "Liberal Party" || x.member.party == "PRES"
+              ? "2.5px solid #1C4F9C"
+              : x.member.party == "National Party" ||
+                x.member.party == "Country Liberal Party"
+              ? "2.5px solid #1C4F9C"
+              : x.member.party == "Liberal National Party"
+              ? "2.5px solid #1C4F9C"
+              : x.member.party == "CWM"
+              ? "2.5px solid #1C4F9C"
+              : x.member.party == "Pauline Hanson's One Nation Party"
+              ? "2.5px solid #f36c21"
+              : "",
+        }}
+        src={
+          x.member.person.id != "10963"
+            ? `https://www.openaustralia.org.au/images/mpsL/${x.member.person.id}.jpg`
+            : "https://www.outinperth.com/wp-content/uploads/2020/11/Garth-Hamilton.jpg"
+        }
+      />
+    </span>
+  );
+}
 
 export default function Home({ divisions }) {
+  const router = useRouter()
+  console.log(router.asPath)
+  useEffect(() => {
+    window.addEventListener("keydown", function (e) {
+      if (
+        e.keyCode === 114 ||
+        (e.ctrlKey && e.keyCode === 70) ||
+        (e.metaKey && e.keyCode === 70)
+      ) {
+        e.preventDefault();
+        if (document.activeElement === inputEl.current) {
+          inputEl.current.blur();
+        } else {
+          inputEl.current.focus();
+        }
+      }
+    });
+  });
+  useEffect(() => {
+    if(router.asPath != "/" && !loadingFirst){
+      fetchVotes(router.asPath.replace('/', ''))
+      setLoadingFirst(true)
+    }
+  });
   const [votes, setVotes] = useState({});
+  const [loading, setLoading] = useState(null);
+  const [loadingFirst, setLoadingFirst] = useState(false);
+  const [search, setSearch] = useState("");
+  const inputEl = useRef(null);
+  const nonInputEl = useRef(null);
   async function fetchVotes(id) {
+    setLoading(id);
     setVotes(await fetch(`/api/votes/${id}`).then((r) => r.json()));
-    console.log(votes);
+    setLoading(null);
+    history.pushState('data to be passed', 'Title of the page', `/${id}`);
   }
   return (
     <Page size="large" style={{ width: "100%", padding: "0" }}>
+      <Head>
+        <title>{router.asPath}</title>
+      </Head>
       <Grid.Container gap={0} justify="center" style={{ padding: "0" }}>
         <Grid
           xs={7}
@@ -36,29 +119,49 @@ export default function Home({ divisions }) {
             display: "block",
           }}
         >
-          <div style={{ margin: "0 0 0rem 0 " }}>
+          <div style={{ margin: "0 0 1rem 0 " }}>
             <Input
+              ref={inputEl}
               icon={<Search />}
-              placeholder="The Evil Rabbit"
+              value={search}
+              onInput={(e) => setSearch(e.target.value)}
+              placeholder="Search Divisions"
               width="100%"
             />
           </div>
-          <div style={{ overflow: "scroll", height: "calc(100% - 36px)" }}>
+          <div
+            style={{ overflow: "scroll", height: "calc(100% - 36px - 1rem)" }}
+            className="divisions-bar"
+          >
             {divisions.map(
-              ({
-                house,
-                name,
-                aye_votes,
-                id,
-                no_votes,
-                possible_turnout,
-                date,
-              }) => (
+              (
+                {
+                  house,
+                  name,
+                  aye_votes,
+                  id,
+                  no_votes,
+                  possible_turnout,
+                  date,
+                },
+                index
+              ) => (
                 <Card
                   key={id}
-                  style={{ margin: "1rem 0 0 0" }}
+                  style={{
+                    margin: "0rem 0 1rem 0",
+                    borderColor: votes.id == id ? "#0070F3" : "",
+                    cursor: loading == id ? "wait" : "pointer",
+                    display:
+                      search == "" ||
+                      name.toUpperCase().includes(search.toUpperCase())
+                        ? "inherit"
+                        : "none",
+                  }}
                   hoverable
-                  onClick={() => fetchVotes(id)}
+                  onClick={() =>
+                    votes.id == id ? setVotes({}) : fetchVotes(id)
+                  }
                 >
                   <Text small style={{ color: "#666666" }}>
                     The{" "}
@@ -124,57 +227,7 @@ export default function Home({ divisions }) {
                   </div>
                 </Card>
               )
-            )}
-            <Card
-              hoverable
-              style={{ margin: "1rem 0 0 0", borderColor: "#0070F3" }}
-            >
-              <Text small style={{ color: "#666666" }}>
-                The House of Representatives | 25th Mar 2021
-              </Text>
-              <Text h5 style={{ fontWeight: "700", textAlign: "left" }}>
-                Mutual Recognition Amendment Bill 2021 - Consideration in Detail
-                - Don't add exclusion
-              </Text>
-              <div style={{ display: "flex" }}>
-                <Avatar
-                  style={{ objectFit: "cover" }}
-                  src={"https://www.openaustralia.org.au/images/mpsL/10941.jpg"}
-                />
-                <div
-                  style={{
-                    display: "block",
-                    width: "calc(100% - 1.875rem)",
-                    paddingLeft: "8px",
-                  }}
-                >
-                  <div style={{ marginBottom: "8px" }}>
-                    {" "}
-                    <Tooltip
-                      text={"The motion was passed with a slight majority."}
-                      style={{ display: "block", width: "100%" }}
-                    >
-                      <Progress
-                        value={67}
-                        max={67 + 59}
-                        colors={{
-                          20: "#000",
-                          40: "#000",
-                          60: "#B8DE3D",
-                          80: "#000",
-                        }}
-                      />
-                    </Tooltip>
-                  </div>
-                  <Tooltip
-                    text={"An attendance of 83% was observed."}
-                    style={{ display: "block", width: "100%" }}
-                  >
-                    <Progress value={83} max={100} type="success" />
-                  </Tooltip>
-                </div>
-              </div>
-            </Card>
+            )}{" "}
           </div>
         </Grid>
         {typeof votes.votes == "undefined" ? (
@@ -243,16 +296,7 @@ export default function Home({ divisions }) {
               <Spacer y={0.6} />
               <div style={{ lineHeight: "2.5" }}>
                 {votes.votes.map((x) =>
-                  x.vote == "aye" ? (
-                    <span key={x.member.person.id} style={{ marginRight: "8px", marginBottom: "8px" }}>
-                      <Avatar
-                        style={{ objectFit: "cover" }}
-                        src={`https://www.openaustralia.org.au/images/mpsL/${x.member.person.id}.jpg`}
-                      />
-                    </span>
-                  ) : (
-                    ""
-                  )
+                  x.vote == "aye" ? <AvatarForRep x={x} /> : ""
                 )}
               </div>
             </div>
@@ -278,16 +322,7 @@ export default function Home({ divisions }) {
               <Spacer y={0.6} />
               <div style={{ lineHeight: "2.5" }}>
                 {votes.votes.map((x) =>
-                  x.vote == "no" ? (
-                    <span key={x.member.person.id} style={{ marginRight: "8px", marginBottom: "8px" }}>
-                      <Avatar
-                        style={{ objectFit: "cover" }}
-                        src={`https://www.openaustralia.org.au/images/mpsL/${x.member.person.id}.jpg`}
-                      />
-                    </span>
-                  ) : (
-                    ""
-                  )
+                  x.vote == "no" ? <AvatarForRep x={x} /> : ""
                 )}
               </div>
             </div>
@@ -298,6 +333,10 @@ export default function Home({ divisions }) {
         main {
           padding: 0px !important;
         }
+
+        .avatar-wrapper .avatar{
+          border: none!important
+        }
       `}</style>
     </Page>
   );
@@ -307,7 +346,6 @@ export async function getStaticProps() {
   let divisions = await fetch(
     `https://theyvoteforyou.org.au/api/v1/divisions.json?key=${process.env.key}`
   ).then((r) => r.json());
-  console.log(divisions);
   return {
     props: { divisions }, // will be passed to the page component as props
   };
