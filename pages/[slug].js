@@ -48,6 +48,9 @@ export async function getStaticProps({ params }) {
   const isDev = !process.env.AWS_REGION;
   let divisions = divisionsJSON
   let parties = {};
+  let data = await fetch(
+    `https://theyvoteforyou.org.au/api/v1/divisions/${params.slug}.json?key=${process.env.key}`
+  ).then((r) => r.json());
   let images = {
     "Liberal Party":
       "https://pbs.twimg.com/profile_images/1117392084653133825/0phgU_tv.jpg",
@@ -104,7 +107,7 @@ export async function getStaticProps({ params }) {
       };
     }
   });
-  
+
   return {
     props: { divisions, data, parties }, // will be passed to the page component as props
   };
