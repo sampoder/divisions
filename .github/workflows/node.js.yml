@@ -35,5 +35,5 @@ jobs:
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --global user.name "Data Update!"
         git add .
-        git commit -m "Images update!" || true
+        git commit -m "Data Update!" || true
         git push
