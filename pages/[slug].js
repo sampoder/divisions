@@ -12,7 +12,7 @@ export default function Home({ divisions, data, parties, home }) {
           title={!home ? data.name : ""}
           image={
             !home
-              ? `https://aus-divisions.co/api/og_image?house=The%20${
+              ? `https://divisions.vercel.app/api/og_image?house=The%20${
                   data.house == "senate" ? "Senate" : "House of Representatives"
                 }&title=${data.name}&date=${new Date(data.date)
                   .toLocaleDateString()
@@ -25,7 +25,7 @@ export default function Home({ divisions, data, parties, home }) {
                 }&percent=${Math.round(
                   (data.aye_votes / (data.aye_votes + data.no_votes)) * 100
                 )}${Object.keys(parties)
-                  .map((x) => `&${parties[x].vote}=${parties[x].image}`)
+                  .map((x) => `&${parties[x].vote}=${parties[x]?.image || "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/2048px-Blue_question_mark_icon.svg.png"}`)
                   .join("")}`
               : ""
           }
@@ -168,6 +168,56 @@ export async function getStaticProps({ params }) {
         vote: "nay",
         image:
           "https://cloud-qu5c4x9eb-hack-club-bot.vercel.app/0labor_pary.png",
+      },
+      "SPK": {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/2048px-Blue_question_mark_icon.svg.png",
+      },
+      "Chaney": {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/0/02/Kate_Chaney_MP.jpg",
+      },
+      "Pocock": {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/David_Pocock_park.jpg/1920px-David_Pocock_park.jpg",
+      },
+      "United Australia Party": {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/en/0/08/Logo_of_the_United_Australia_Party.png",
+      },
+      "Le": {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Dai_Le_headshot.jpg/1280px-Dai_Le_headshot.jpg",
+      },
+      "Daniel": {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/8/83/Zoe_Daniel.jpg",
+      },
+      "Tink": {
+        vote: "nay",
+        image:
+          "https://assets.nationbuilder.com/northsydneysindy/pages/171/attachments/original/1646883973/kylea-tink.jpg?1646883973",
+      },
+      "Spender": {
+        vote: "nay",
+        image:
+          "https://www.aph.gov.au/api/parliamentarian/286042/image",
+      },
+      "Scamps": {
+        vote: "nay",
+        image:
+          "https://cdn.newsapi.com.au/image/v1/e9aded95118796bbd21e82522e158f49",
+      },
+      "Ryan": {
+        vote: "nay",
+        image:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/MONIQUE_RYAN_L1200490_CREDIT_KRISTOFFER_PAULSEN.jpg/440px-MONIQUE_RYAN_L1200490_CREDIT_KRISTOFFER_PAULSEN.jpg",
       }
     };
 
