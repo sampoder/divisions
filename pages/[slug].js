@@ -97,6 +97,16 @@ export async function getStaticProps({ params }) {
       Patrick: "https://inbox.news/media/225/conversions/profile_image.jpg",
       "Pauline Hanson's One Nation Party":
         "https://pbs.twimg.com/profile_images/620385771103518721/NgUC1EAH_400x400.png",
+      "SPK": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blue_question_mark_icon.svg/2048px-Blue_question_mark_icon.svg.png",
+      "Chaney": "https://upload.wikimedia.org/wikipedia/commons/0/02/Kate_Chaney_MP.jpg",
+      "Pocock": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/David_Pocock_park.jpg/1920px-David_Pocock_park.jpg",
+      "United Australia Party": "https://upload.wikimedia.org/wikipedia/en/0/08/Logo_of_the_United_Australia_Party.png",
+      "Le": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Dai_Le_headshot.jpg/1280px-Dai_Le_headshot.jpg",
+      "Daniel": "https://upload.wikimedia.org/wikipedia/commons/8/83/Zoe_Daniel.jpg",
+      "Tink": "https://assets.nationbuilder.com/northsydneysindy/pages/171/attachments/original/1646883973/kylea-tink.jpg?1646883973",
+      "Spender": "https://www.aph.gov.au/api/parliamentarian/286042/image",
+      "Scamps": "https://cdn.newsapi.com.au/image/v1/e9aded95118796bbd21e82522e158f49",
+      "Ryan": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/MONIQUE_RYAN_L1200490_CREDIT_KRISTOFFER_PAULSEN.jpg/440px-MONIQUE_RYAN_L1200490_CREDIT_KRISTOFFER_PAULSEN.jpg",
     };
     data.votes.map((x) => {
       if (
