@@ -199,7 +199,10 @@ export default function Home({ divisions, data }) {
                       {name}
                     </Text>
                     <div style={{ display: "flex" }}>
-                      <Avatar style={{ objectFit: "cover" }} src={picture} />
+                      <Avatar style={{ objectFit: "cover" }} src={picture} onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src="https://www.aph.gov.au/images/template/default_parliamentarian.png";
+        }} />
                       <div
                         style={{
                           display: "block",
