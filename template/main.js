@@ -65,7 +65,7 @@ function AvatarForRep({ x }) {
         }}
         src={
           x.member.person.id != "10963"
-            ? `https://www.aph.gov.au/api/parliamentarian/${x.member.person.id}/image`
+            ? `https://www.openaustralia.org.au/images/mpsL/${x.member.person.id}.jpg`
             : "https://www.outinperth.com/wp-content/uploads/2020/11/Garth-Hamilton.jpg"
         }
       />
