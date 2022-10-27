@@ -68,6 +68,10 @@ function AvatarForRep({ x }) {
             ? `https://www.openaustralia.org.au/images/mpsL/${x.member.person.id}.jpg`
             : "https://www.outinperth.com/wp-content/uploads/2020/11/Garth-Hamilton.jpg"
         }
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src="https://www.aph.gov.au/images/template/default_parliamentarian.png";
+        }}
       />
     </span>
   );
