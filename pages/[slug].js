@@ -12,7 +12,7 @@ export default function Home({ divisions, data, parties, home }) {
           title={!home ? data.name : ""}
           image={
             !home
-              ? `https://divisions.vercel.app/api/og_image?house=The%20${
+              ? `https://divisions-dp3awqzzt-sampoder.vercel.app/api/og_image?house=The%20${
                   data.house == "senate" ? "Senate" : "House of Representatives"
                 }&title=${data.name}&date=${new Date(data.date)
                   .toLocaleDateString()
